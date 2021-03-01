@@ -12,25 +12,18 @@ public:
         two=1;
     };
     Rational(int numerator,int denominator){
-        if (denominator==0){
-            throw invalid_argument("invalid_argument");
-        } else {
             while (gcd(numerator, denominator) != 1) {
                 k = gcd(numerator, denominator);
                 numerator /= k;
                 denominator /= k;
             }
-            if (denominator < 0 && numerator < 0) {
-                one = -numerator;
-                two = -denominator;
-            } else if (denominator < 0) {
+            if (denominator < 0) {
                 one = -numerator;
                 two = -denominator;
             } else {
                 one = numerator;
                 two = denominator;
             }
-        }
     };
     int Numerator() const {
         return one;
@@ -38,10 +31,13 @@ public:
     int Denominator() const {
         return two;
     };
-
 private:
     int one,two,k;
 };
+
+bool operator<(Rational r1,Rational r2){
+    return ((r1.Numerator()/(double)r1.Denominator())<((r2.Numerator()/(double)r2.Denominator())));
+}
 
 bool operator==(const Rational& r1,const Rational& r2){
     if ((r1.Denominator()==r2.Denominator())&&(r1.Numerator()==r2.Numerator())){
@@ -105,9 +101,7 @@ bool operator>(Rational r1,Rational r2){
     return ((r1.Numerator()/(double)r1.Denominator())>(double(r2.Numerator())/(double)r2.Denominator()));
 }
 
-bool operator<(Rational r1,Rational r2){
-    return ((r1.Numerator()/(double)r1.Denominator())<((r2.Numerator()/(double)r2.Denominator())));
-}
+
 
 int main() {
    int a1,a2,b1,b2;
